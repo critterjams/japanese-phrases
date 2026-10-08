@@ -1,0 +1,940 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#19223A">
+<title>Japanese phrases: greetings, ordering food, thank you's</title>
+<style>
+  :root {
+    --bg: #EEF1F4;
+    --card: #FFFFFF;
+    --ink: #19223A;
+    --muted: #5B6577;
+    --say: #0B6560;
+    --line: #D9DEE6;
+    --chip: #E3E8EF;
+    --accent: #19223A;
+    --on-accent: #FFFFFF;
+    --jp-font: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", "Meiryo", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #10151F;
+      --card: #1A2232;
+      --ink: #EDF0F5;
+      --muted: #9AA5B8;
+      --say: #6FD1C6;
+      --line: #2A3347;
+      --chip: #232C40;
+      --accent: #EDF0F5;
+      --on-accent: #10151F;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+
+  html { -webkit-text-size-adjust: 100%; }
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.4;
+  }
+
+  /* One gutter (16px) for hero, nav and main so everything lines up. */
+  .hero {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: calc(env(safe-area-inset-top, 0px) + 24px) 16px 16px;
+  }
+  .hero h1 {
+    margin: 0 0 8px;
+    font-size: 1.9rem;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+  .hero p { margin: 0; color: var(--ink); font-size: 0.98rem; }
+  .controls { display: grid; gap: 8px; margin-top: 16px; }
+
+  /* Shared control look: accordion rows and dropdowns are the same component. */
+  .acc, .select-wrap select {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--card);
+    color: var(--ink);
+  }
+  .acc summary {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 48px;
+    padding: 0 16px;
+    border-radius: 14px;
+    font-weight: 600;
+    list-style: none;
+    cursor: pointer;
+  }
+  .acc summary::-webkit-details-marker { display: none; }
+  .acc summary .label { flex: 1; }
+  .acc summary .value {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 500;
+    color: var(--muted);
+  }
+  .acc-body { padding: 0 16px 16px; }
+  .chev { width: 22px; height: 22px; flex: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    .chev { transition: transform 0.2s; }
+  }
+  .acc[open] > summary .chev { transform: rotate(180deg); }
+
+  .select-wrap { position: relative; }
+  .select-wrap select {
+    -webkit-appearance: none;
+    appearance: none;
+    display: block;
+    width: 100%;
+    min-height: 48px;
+    padding: 0 48px 0 16px;
+    font: inherit;
+    font-weight: 600;
+    font-size: 1rem;
+    text-overflow: ellipsis;
+  }
+  .select-wrap .chev {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    margin-top: -11px;
+    pointer-events: none;
+  }
+  .acc summary:focus-visible, .select-wrap select:focus-visible {
+    outline: 3px solid var(--say);
+    outline-offset: 2px;
+  }
+
+  .vowels {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+    gap: 8px;
+    margin: 0 0 16px;
+  }
+  .vowels div { padding: 10px 12px; border-radius: 12px; background: var(--chip); }
+  .vowels dt { font-size: 1.35rem; font-weight: 700; line-height: 1.2; color: var(--say); }
+  .vowels dd { margin: 2px 0 0; font-size: 0.9rem; color: var(--muted); }
+  .tips { margin: 0; padding-left: 20px; display: grid; gap: 10px; font-size: 0.98rem; line-height: 1.5; }
+  .tips b { color: var(--say); }
+
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  nav .row { max-width: 640px; margin: 0 auto; padding: 8px 16px; }
+
+  main {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 16px calc(env(safe-area-inset-bottom, 0px) + 40px);
+  }
+
+  section { scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 72px); padding-top: 24px; }
+  section h2 {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin: 0 0 4px;
+    font-size: 1.6rem;
+    line-height: 1.2;
+  }
+  section h2 span {
+    font-family: var(--jp-font);
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--muted);
+  }
+  section h3 {
+    margin: 22px 0 8px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--muted);
+  }
+  section h2 + h3 { margin-top: 14px; }
+  section .note { margin: 4px 0 0; font-size: 0.95rem; color: var(--muted); }
+  .swatch {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 6px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    vertical-align: -1px;
+  }
+
+  ul.cards { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 10px; }
+  h3 + ul.cards { margin-top: 0; }
+
+  .card {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+    align-items: center;
+    padding: 14px 10px 14px 16px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+  }
+  .jp {
+    margin: 0;
+    font-family: var(--jp-font);
+    font-size: 1.35rem;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+  .say {
+    margin: 4px 0 2px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--say);
+    overflow-wrap: anywhere;
+  }
+  .en { margin: 0; font-size: 0.95rem; color: var(--muted); }
+  .tag {
+    display: inline-block;
+    margin-right: 6px;
+    padding: 1px 8px;
+    border-radius: 999px;
+    background: var(--chip);
+    color: var(--ink);
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .actions { display: flex; flex-direction: column; gap: 4px; }
+  button { font: inherit; color: inherit; }
+  .icon {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border: 0;
+    border-radius: 12px;
+    background: var(--chip);
+    color: var(--ink);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .icon:active { background: var(--line); }
+  .icon svg { width: 22px; height: 22px; }
+  button:focus-visible, a:focus-visible { outline: 3px solid var(--say); outline-offset: 2px; }
+
+  .chips {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(104px, 1fr));
+    gap: 8px;
+  }
+  .chip {
+    width: 100%;
+    min-height: 64px;
+    padding: 8px 6px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--card);
+    text-align: center;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .chip:active { background: var(--chip); }
+  .chip .jp { font-size: 1.15rem; }
+  .chip .say { margin: 2px 0 0; font-size: 0.85rem; }
+  .chip .en { font-size: 0.8rem; }
+
+  /* Show-to-staff screen */
+  #show {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding: calc(env(safe-area-inset-top, 0px) + 72px) 24px calc(env(safe-area-inset-bottom, 0px) + 40px);
+    background: #10151F;
+    color: #FFFFFF;
+    text-align: center;
+    cursor: pointer;
+  }
+  #show .big {
+    margin: 0;
+    font-family: var(--jp-font);
+    font-size: clamp(2rem, 9vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1.3;
+  }
+  #show .big-say { margin: 0; font-size: 1.35rem; font-weight: 700; color: #6FD1C6; }
+  #show .big-en { margin: 0; font-size: 1.1rem; color: #AEB8CA; }
+  #show .close {
+    position: absolute;
+    top: calc(env(safe-area-inset-top, 0px) + 12px);
+    right: 16px;
+    width: 48px;
+    height: 48px;
+    border: 0;
+    border-radius: 14px;
+    background: #232C40;
+    color: #FFFFFF;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+  }
+  #show .close svg { width: 24px; height: 24px; }
+  #show .hint { position: absolute; bottom: calc(env(safe-area-inset-bottom, 0px) + 16px); margin: 0; font-size: 0.85rem; color: #7F8BA0; }
+  #show .play { background: #232C40; color: #fff; width: 56px; height: 56px; border-radius: 16px; }
+  #show .play svg { width: 26px; height: 26px; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>Japanese phrases</h1>
+  <p>Read the green line out loud. Tap the speaker to hear it, or tap the expand button to hold your phone up to someone.</p>
+  <div class="controls">
+    <details class="acc">
+      <summary><span class="label">Sounds guide</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="acc-body">
+        <dl class="vowels">
+          <div><dt>ah</dt><dd>as in father</dd></div>
+          <div><dt>eh</dt><dd>as in bed</dd></div>
+          <div><dt>ee</dt><dd>as in see</dd></div>
+          <div><dt>oh</dt><dd>as in go</dd></div>
+          <div><dt>oo</dt><dd>as in moon</dd></div>
+        </dl>
+        <ul class="tips">
+          <li>Say every syllable evenly. Japanese has no strong stress.</li>
+          <li>The sound of “eye” is written <b>sigh</b>, <b>guy</b>, <b>zye</b>, <b>rye</b>, <b>tie</b>, or <b>kigh</b>, so <b>koo-dah-sigh</b> ends like “sigh”.</li>
+          <li>In <b>dess</b> and <b>mahss</b>, the last “u” is barely said.</li>
+          <li>A doubled consonant, as in <b>keep-poo</b>, means a tiny pause before it.</li>
+        </ul>
+      </div>
+    </details>
+    <details class="acc" id="voiceRow" hidden>
+      <summary><span class="label">Voice</span><span class="value" id="voiceName"></span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="acc-body">
+        <div class="select-wrap">
+          <select id="voiceSelect" aria-label="Japanese voice"></select>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+      </div>
+    </details>
+  </div>
+</header>
+
+<nav aria-label="Sections">
+  <div class="row">
+    <div class="select-wrap">
+      <select id="jump" aria-label="Jump to section"></select>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+  </div>
+</nav>
+
+<main id="app"></main>
+
+<div id="show" role="dialog" aria-modal="true" aria-label="Phrase shown full screen" hidden>
+  <button class="close" type="button" aria-label="Close">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <p class="big" lang="ja" id="showJp"></p>
+  <p class="big-say" id="showSay"></p>
+  <p class="big-en" id="showEn"></p>
+  <button class="icon play" type="button" id="showPlay" aria-label="Play pronunciation">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4z"/><path d="M15.5 9a4 4 0 010 6M18 6.5a7.5 7.5 0 010 11"/></svg>
+  </button>
+  <p class="hint">Tap anywhere to close</p>
+</div>
+
+<script>
+// Each phrase: [japanese, phonetic English, meaning, optional flag]
+// flag "hear" = something staff will say to you.
+const sections = [
+  {
+    id: "greetings", title: "Greetings", jp: "あいさつ",
+    groups: [
+      { label: "", items: [
+        ["おはようございます", "oh-hah-yoh goh-zye-mahss", "Good morning"],
+        ["こんにちは", "kohn-nee-chee-wah", "Hello / good afternoon"],
+        ["こんばんは", "kohn-bahn-wah", "Good evening"],
+        ["おやすみなさい", "oh-yah-soo-mee nah-sigh", "Good night"],
+        ["はじめまして", "hah-jee-meh-mah-shteh", "Nice to meet you"],
+        ["よろしくお願いします", "yoh-roh-shee-koo oh-neh-guy shee-mahss", "Please treat me well (said after introductions)"],
+        ["お元気ですか", "oh-gehn-kee dess kah", "How are you?"],
+        ["元気です", "gehn-kee dess", "I'm well"],
+        ["さようなら", "sah-yoh-nah-rah", "Goodbye"],
+        ["またね", "mah-tah neh", "See you later (casual)"],
+        ["すみません", "soo-mee-mah-sen", "Excuse me / sorry (also for getting attention)"],
+        ["英語を話せますか", "ay-go oh hah-nah-seh-mahss kah", "Do you speak English?"]
+      ]}
+    ]
+  },
+  {
+    id: "ordering", title: "Ordering food", jp: "注文",
+    groups: [
+      { label: "Sitting down", items: [
+        ["いらっしゃいませ", "ee-rahs-shy-mah-seh", "Welcome!", "hear"],
+        ["一人です", "hee-toh-ree dess", "Just one person"],
+        ["二人です", "foo-tah-ree dess", "Two people"],
+        ["四人です", "yoh-neen dess", "Four people"],
+        ["六人です", "roh-koo-neen dess", "Six people"],
+        ["メニューをお願いします", "meh-nyoo oh oh-neh-guy shee-mahss", "Menu, please"],
+        ["英語のメニューはありますか", "ay-go no meh-nyoo wah ah-ree-mahss kah", "Do you have an English menu?"]
+      ]},
+      { label: "Ticket machines", items: [
+        ["券売機はどこですか", "kehn-bye-kee wah doh-koh dess kah", "Where is the ticket machine?"],
+        ["先に食券を買ってください", "sah-kee nee shohk-kehn oh kaht-teh koo-dah-sigh", "Please buy a meal ticket first", "hear"],
+        ["英語はありますか", "ay-go wah ah-ree-mahss kah", "Is there English? (ask about the machine's screen)"],
+        ["これをお願いします", "koh-reh oh oh-neh-guy shee-mahss", "Here you go (handing over your ticket)"],
+        ["食券をお願いします", "shohk-kehn oh oh-neh-guy shee-mahss", "Your ticket, please", "hear"],
+        ["水はセルフです", "mee-zoo wah sehr-foo dess", "Water is self-serve", "hear"]
+      ]},
+      { label: "Ordering", items: [
+        ["注文お願いします", "choo-mohn oh-neh-guy shee-mahss", "I'd like to order"],
+        ["おすすめは何ですか", "oh-soo-soo-meh wah nahn dess kah", "What do you recommend?"],
+        ["これをください", "koh-reh oh koo-dah-sigh", "This one, please (point at the menu)"],
+        ["これとこれをください", "koh-reh toh koh-reh oh koo-dah-sigh", "This and this, please"],
+        ["ビールをひとつください", "bee-roo oh hee-toh-tsoo koo-dah-sigh", "One beer, please"],
+        ["お水をください", "oh-mee-zoo oh koo-dah-sigh", "Water, please"],
+        ["辛いですか", "kah-rye dess kah", "Is it spicy?"],
+        ["辛くしないでください", "kah-rah-koo shee-nigh-deh koo-dah-sigh", "Please make it not spicy"],
+        ["持ち帰りでお願いします", "moh-chee-kah-eh-ree deh oh-neh-guy shee-mahss", "To go, please"]
+      ]},
+      { label: "Dietary needs", items: [
+        ["アレルギーがあります", "ah-reh-roo-gee gah ah-ree-mahss", "I have a food allergy"],
+        ["ナッツは入っていますか", "naht-tsoo wah high-teh ee-mahss kah", "Does it contain nuts?"],
+        ["ピーナッツは入れないでください", "pee-naht-tsoo wah ee-reh-nigh-deh koo-dah-sigh", "No peanuts, please"]
+      ]},
+      { label: "Eating and paying", items: [
+        ["いただきます", "ee-tah-dah-kee-mahss", "Said before eating (like “let's eat”)"],
+        ["おいしいです", "oy-shee dess", "It's delicious"],
+        ["お会計をお願いします", "oh-kigh-kay oh oh-neh-guy shee-mahss", "The check, please"],
+        ["カードは使えますか", "kah-doh wah tsoo-kah-eh-mahss kah", "Can I pay by card?"],
+        ["別々でお願いします", "beh-tsoo-beh-tsoo deh oh-neh-guy shee-mahss", "Separate checks, please"]
+      ]}
+    ],
+    counts: {
+      label: "Counting items (say it after the food or drink)",
+      items: [
+        ["ひとつ", "hee-toh-tsoo", "One"],
+        ["ふたつ", "foo-tah-tsoo", "Two"],
+        ["みっつ", "meet-tsoo", "Three"],
+        ["よっつ", "yoht-tsoo", "Four"],
+        ["いつつ", "ee-tsoo-tsoo", "Five"]
+      ]
+    }
+  },
+  {
+    id: "thanks", title: "Thank you's", jp: "お礼",
+    groups: [
+      { label: "", items: [
+        ["ありがとう", "ah-ree-gah-toh", "Thanks (casual)"],
+        ["ありがとうございます", "ah-ree-gah-toh goh-zye-mahss", "Thank you (polite)"],
+        ["どうもありがとうございます", "doh-moh ah-ree-gah-toh goh-zye-mahss", "Thank you very much"],
+        ["ありがとうございました", "ah-ree-gah-toh goh-zye-mahsh-tah", "Thank you for what you did (when leaving or finishing)"],
+        ["どういたしまして", "doh ee-tah-shee-mah-shteh", "You're welcome"],
+        ["ごちそうさまでした", "goh-chee-soh-sah-mah desh-tah", "Thank you for the meal (said after eating)"],
+        ["とてもおいしかったです", "toh-teh-moh oy-shee-kaht-tah dess", "It was very delicious"],
+        ["親切にありがとうございます", "sheen-seh-tsoo nee ah-ree-gah-toh goh-zye-mahss", "Thank you for your kindness"],
+        ["助かりました", "tah-soo-kah-ree-mahsh-tah", "That helped me a lot"],
+        ["お世話になりました", "oh-seh-wah nee nah-ree-mahsh-tah", "Thank you for looking after me"],
+        ["ごめんなさい", "goh-mehn nah-sigh", "I'm sorry"]
+      ]}
+    ]
+  },
+  {
+    id: "airport", title: "Airport to hotel", jp: "空港からホテルへ",
+    note: "Save your hotel's name and address in Japanese on your phone. Showing it is the most reliable way to get there.",
+    groups: [
+      { label: "Arriving", items: [
+        ["観光です", "kahn-koh dess", "I'm here as a tourist"],
+        ["五日間滞在します", "ee-tsoo-kah-kahn tie-zigh shee-mahss", "I'll stay for five days (swap in your number)", null, "いつかかんたいざいします"],
+        ["ホテルに泊まります", "hoh-teh-roo nee toh-mah-ree-mahss", "I'm staying at a hotel"],
+        ["申告するものはありません", "sheen-koh-koo soo-roo moh-noh wah ah-ree-mah-sen", "I have nothing to declare"],
+        ["荷物はどこで受け取れますか", "nee-moh-tsoo wah doh-koh deh oo-keh-toh-reh-mahss kah", "Where do I pick up my luggage?"]
+      ]},
+      { label: "Getting to the city", items: [
+        ["市内までどうやって行きますか", "shee-nigh mah-deh doh-yaht-teh ee-kee-mahss kah", "How do I get to the city center?"],
+        ["ホテルまでの行き方を教えてください", "hoh-teh-roo mah-deh no ee-kee-kah-tah oh oh-shee-eh-teh koo-dah-sigh", "Please tell me how to get to my hotel"],
+        ["バス乗り場はどこですか", "bah-soo noh-ree-bah wah doh-koh dess kah", "Where is the bus stop?"],
+        ["タクシー乗り場はどこですか", "tahk-shee noh-ree-bah wah doh-koh dess kah", "Where is the taxi stand?"],
+        ["ICカードを買いたいです", "eye-shee kah-doh oh kigh-tie dess", "I'd like to buy an IC card (like Suica or Pasmo)"],
+        ["チャージをお願いします", "chah-jee oh oh-neh-guy shee-mahss", "Please add money to my card"],
+        ["このバスはこのホテルに行きますか", "koh-noh bah-soo wah koh-noh hoh-teh-roo nee ee-kee-mahss kah", "Does this bus go to this hotel? (show the name)"]
+      ]},
+      { label: "Taxi and bus", items: [
+        ["このホテルまでお願いします", "koh-noh hoh-teh-roo mah-deh oh-neh-guy shee-mahss", "To this hotel, please (show the name)"],
+        ["この住所までお願いします", "koh-noh joo-shoh mah-deh oh-neh-guy shee-mahss", "To this address, please"],
+        ["どのくらいかかりますか", "doh-noh koo-rye kah-kah-ree-mahss kah", "How long will it take?"],
+        ["いくらぐらいですか", "ee-koo-rah goo-rye dess kah", "About how much is it?"],
+        ["トランクを開けてください", "toh-rahn-koo oh ah-keh-teh koo-dah-sigh", "Please open the trunk"],
+        ["ここで降ります", "koh-koh deh oh-ree-mahss", "I'll get off here"],
+        ["領収書をください", "ryoh-shoo-shoh oh koo-dah-sigh", "A receipt, please"]
+      ]},
+      { label: "Hotel check-in", items: [
+        ["チェックインをお願いします", "chehk-keen oh oh-neh-guy shee-mahss", "Check-in, please"],
+        ["予約しています", "yoh-yah-koo shee-teh ee-mahss", "I have a reservation"],
+        ["お名前をお願いします", "oh-nah-mah-eh oh oh-neh-guy shee-mahss", "Your name, please", "hear"],
+        ["パスポートをお願いします", "pahs-poh-toh oh oh-neh-guy shee-mahss", "Your passport, please", "hear"],
+        ["はい、どうぞ", "high, doh-zoh", "Yes, here you go"],
+        ["何時にチェックインできますか", "nahn-jee nee chehk-keen deh-kee-mahss kah", "What time can I check in?"],
+        ["荷物を預かってもらえますか", "nee-moh-tsoo oh ah-zoo-kaht-teh moh-rah-eh-mahss kah", "Can you hold my luggage?"],
+        ["朝食は何時ですか", "choh-shoh-koo wah nahn-jee dess kah", "What time is breakfast?"],
+        ["チェックアウトは何時ですか", "chehk-kah-oo-toh wah nahn-jee dess kah", "What time is check-out?"],
+        ["Wi-Fiのパスワードは何ですか", "wigh-figh no pah-soo-wah-doh wah nahn dess kah", "What's the Wi-Fi password?", null, "ワイファイのパスワードはなんですか"]
+      ]}
+    ]
+  },
+  {
+    id: "wayfinding", title: "Getting around", jp: "道案内",
+    groups: [
+      { label: "Asking where things are", items: [
+        ["トイレはどこですか", "toy-reh wah doh-koh dess kah", "Where is the bathroom?"],
+        ["駅はどこですか", "eh-kee wah doh-koh dess kah", "Where is the station?"],
+        ["バス停はどこですか", "bah-soo-teh wah doh-koh dess kah", "Where is the bus stop?"],
+        ["コンビニはどこですか", "kohn-bee-nee wah doh-koh dess kah", "Where is the convenience store?"],
+        ["出口はどこですか", "deh-goo-chee wah doh-koh dess kah", "Where is the exit?"],
+        ["ここはどこですか", "koh-koh wah doh-koh dess kah", "Where am I? / Where is this?"],
+        ["道に迷いました", "mee-chee nee mah-yoh-ee-mahsh-tah", "I'm lost"],
+        ["ここに行きたいです", "koh-koh nee ee-kee-tie dess", "I want to go here (point at a map or your phone)"],
+        ["地図で見せてください", "chee-zoo deh meh-seh-teh koo-dah-sigh", "Please show me on the map"]
+      ]},
+      { label: "Understanding the answer", items: [
+        ["まっすぐです", "mahs-soo-goo dess", "Go straight ahead", "hear"],
+        ["右に曲がってください", "mee-gee nee mah-gaht-teh koo-dah-sigh", "Please turn right", "hear"],
+        ["左に曲がってください", "hee-dah-ree nee mah-gaht-teh koo-dah-sigh", "Please turn left", "hear"],
+        ["あそこです", "ah-soh-koh dess", "It's over there", "hear"],
+        ["近いです", "chee-kigh dess", "It's close", "hear"],
+        ["遠いです", "toh-ee dess", "It's far", "hear"],
+        ["歩いてどのくらいですか", "ah-roo-ee-teh doh-noh koo-rye dess kah", "How long does it take on foot?"]
+      ]},
+      { label: "Trains, buses, and taxis", items: [
+        ["切符はどこで買えますか", "keep-poo wah doh-koh deh kigh-eh-mahss kah", "Where can I buy a ticket?"],
+        ["この電車は東京に行きますか", "koh-noh dehn-shah wah toh-kyoh nee ee-kee-mahss kah", "Does this train go to Tokyo?"],
+        ["次の駅は何ですか", "tsoo-gee no eh-kee wah nahn dess kah", "What is the next station?"],
+        ["タクシーをお願いします", "tahk-shee oh oh-neh-guy shee-mahss", "A taxi, please"],
+        ["ここで止めてください", "koh-koh deh toh-meh-teh koo-dah-sigh", "Please stop here"]
+      ]}
+    ]
+  },
+  {
+    id: "signs", title: "Signs", jp: "標識",
+    note: "Signs are mostly in kanji, so match the shapes. Tap any tile to hear it.",
+    groups: [
+      { label: "Doors and entrances", chips: true, items: [
+        ["入口", "ee-ree-goo-chee", "Entrance", null, "いりぐち"],
+        ["出口", "deh-goo-chee", "Exit", null, "でぐち"],
+        ["非常口", "hee-joh-goo-chee", "Emergency exit", null, "ひじょうぐち"],
+        ["押す", "oh-soo", "Push", null, "おす"],
+        ["引く", "hee-koo", "Pull", null, "ひく"],
+        ["階段", "kigh-dahn", "Stairs", null, "かいだん"],
+        ["エレベーター", "eh-reh-beh-tah", "Elevator"]
+      ]},
+      { label: "Restrooms", chips: true, items: [
+        ["トイレ", "toy-reh", "Toilet"],
+        ["男", "oh-toh-koh", "Men", null, "おとこ"],
+        ["女", "ohn-nah", "Women", null, "おんな"],
+        ["使用中", "shee-yoh-choo", "Occupied", null, "しようちゅう"]
+      ]},
+      { label: "Streets and roads", chips: true, items: [
+        ["止まれ", "toh-mah-reh", "Stop", null, "とまれ"],
+        ["一方通行", "eep-poh tsoo-koh", "One way", null, "いっぽうつうこう"],
+        ["駐車禁止", "choo-shah keen-shee", "No parking", null, "ちゅうしゃきんし"],
+        ["徐行", "joh-koh", "Slow down", null, "じょこう"],
+        ["工事中", "koh-jee-choo", "Under construction", null, "こうじちゅう"],
+        ["空車", "koo-shah", "Taxi is free (red light)", null, "くうしゃ"]
+      ]},
+      { label: "Shops and restaurants", chips: true, items: [
+        ["営業中", "ay-gyoh-choo", "Open for business", null, "えいぎょうちゅう"],
+        ["準備中", "joon-bee-choo", "Not open yet (getting ready)", null, "じゅんびちゅう"],
+        ["満席", "mahn-seh-kee", "Full, no seats", null, "まんせき"],
+        ["売り切れ", "oo-ree-kee-reh", "Sold out", null, "うりきれ"],
+        ["定休日", "teh-kyoo-bee", "Regular closing day", null, "ていきゅうび"],
+        ["無料", "moo-ryoh", "Free of charge", null, "むりょう"],
+        ["免税", "mehn-zeh", "Tax-free", null, "めんぜい"],
+        ["両替", "ryoh-gah-eh", "Money exchange", null, "りょうがえ"]
+      ]},
+      { label: "Warnings", chips: true, items: [
+        ["危険", "kee-kehn", "Danger", null, "きけん"],
+        ["注意", "choo-ee", "Caution", null, "ちゅうい"],
+        ["禁煙", "keen-ehn", "No smoking", null, "きんえん"],
+        ["立入禁止", "tah-chee-ee-ree keen-shee", "No entry", null, "たちいりきんし"]
+      ]}
+    ]
+  },
+  {
+    id: "shopping", title: "Shopping", jp: "買い物",
+    groups: [
+      { label: "Looking around", items: [
+        ["いくらですか", "ee-koo-rah dess kah", "How much is it?"],
+        ["見ているだけです", "mee-teh ee-roo dah-keh dess", "I'm just looking"],
+        ["これを見てもいいですか", "koh-reh oh mee-teh moh ee dess kah", "May I look at this?"],
+        ["試着してもいいですか", "shee-chah-koo shee-teh moh ee dess kah", "May I try this on?"],
+        ["他の色はありますか", "hoh-kah no ee-roh wah ah-ree-mahss kah", "Do you have other colors?"],
+        ["大きいサイズはありますか", "oh-kee-ee sigh-zoo wah ah-ree-mahss kah", "Do you have a bigger size?"],
+        ["小さいサイズはありますか", "chee-ee-sigh sigh-zoo wah ah-ree-mahss kah", "Do you have a smaller size?"]
+      ]},
+      { label: "Paying", items: [
+        ["これをください", "koh-reh oh koo-dah-sigh", "I'll take this"],
+        ["カードで払います", "kah-doh deh hah-rye-mahss", "I'll pay by card"],
+        ["現金で払います", "gehn-keen deh hah-rye-mahss", "I'll pay in cash"],
+        ["免税はできますか", "mehn-zeh wah deh-kee-mahss kah", "Can I get tax-free shopping?"],
+        ["袋をください", "foo-koo-roh oh koo-dah-sigh", "A bag, please"],
+        ["袋はいりません", "foo-koo-roh wah ee-ree-mah-sen", "I don't need a bag"],
+        ["プレゼント用に包んでもらえますか", "poo-reh-zehn-toh-yoh nee tsoon-deh moh-rah-eh-mahss kah", "Can you gift wrap this?"],
+        ["レシートをください", "reh-shee-toh oh koo-dah-sigh", "A receipt, please"]
+      ]},
+      { label: "At the register", items: [
+        ["ポイントカードはお持ちですか", "poyn-toh kah-doh wah oh-moh-chee dess kah", "Do you have a points card?", "hear"],
+        ["持っていません", "moht-teh ee-mah-sen", "No, I don't have one"],
+        ["温めますか", "ah-tah-tah-meh-mahss kah", "Shall I heat it up? (convenience stores)", "hear"],
+        ["温めてください", "ah-tah-tah-meh-teh koo-dah-sigh", "Please heat it up"]
+      ]}
+    ]
+  },
+  {
+    id: "numbers", title: "Numbers", jp: "数字",
+    note: "Build bigger numbers by saying the tens first, then the ones: 45 is 四十五 (yohn-joo-goh), which means four-tens-five.",
+    groups: [
+      { label: "0 to 10", chips: true, items: [
+        ["ゼロ", "zeh-roh", "0"],
+        ["一", "ee-chee", "1", null, "いち"],
+        ["二", "nee", "2", null, "に"],
+        ["三", "sahn", "3", null, "さん"],
+        ["四", "yohn", "4", null, "よん"],
+        ["五", "goh", "5", null, "ご"],
+        ["六", "roh-koo", "6", null, "ろく"],
+        ["七", "nah-nah", "7", null, "なな"],
+        ["八", "hah-chee", "8", null, "はち"],
+        ["九", "kyoo", "9", null, "きゅう"],
+        ["十", "joo", "10", null, "じゅう"]
+      ]},
+      { label: "Tens", chips: true, items: [
+        ["二十", "nee-joo", "20", null, "にじゅう"],
+        ["三十", "sahn-joo", "30", null, "さんじゅう"],
+        ["四十", "yohn-joo", "40", null, "よんじゅう"],
+        ["五十", "goh-joo", "50", null, "ごじゅう"],
+        ["六十", "roh-koo-joo", "60", null, "ろくじゅう"],
+        ["七十", "nah-nah-joo", "70", null, "ななじゅう"],
+        ["八十", "hah-chee-joo", "80", null, "はちじゅう"],
+        ["九十", "kyoo-joo", "90", null, "きゅうじゅう"]
+      ]},
+      { label: "Hundreds and thousands", chips: true, items: [
+        ["百", "hyah-koo", "100", null, "ひゃく"],
+        ["二百", "nee-hyah-koo", "200", null, "にひゃく"],
+        ["三百", "sahn-byah-koo", "300", null, "さんびゃく"],
+        ["五百", "goh-hyah-koo", "500", null, "ごひゃく"],
+        ["千", "sehn", "1,000", null, "せん"],
+        ["二千", "nee-sehn", "2,000", null, "にせん"],
+        ["三千", "sahn-zehn", "3,000", null, "さんぜん"],
+        ["五千", "goh-sehn", "5,000", null, "ごせん"],
+        ["一万", "ee-chee-mahn", "10,000", null, "いちまん"]
+      ]},
+      { label: "Prices in yen", chips: true, items: [
+        ["百円", "hyah-koo ehn", "100 yen", null, "ひゃくえん"],
+        ["五百円", "goh-hyah-koo ehn", "500 yen", null, "ごひゃくえん"],
+        ["千円", "sehn ehn", "1,000 yen", null, "せんえん"],
+        ["五千円", "goh-sehn ehn", "5,000 yen", null, "ごせんえん"],
+        ["一万円", "ee-chee-mahn ehn", "10,000 yen", null, "いちまんえん"]
+      ]}
+    ]
+  },
+  {
+    id: "colors", title: "Colors", jp: "色",
+    groups: [
+      { label: "Common colors", chips: true, items: [
+        ["赤", "ah-kah", "Red", null, "あか", "#D64545"],
+        ["青", "ah-oh", "Blue", null, "あお", "#2F6FD0"],
+        ["黄色", "kee-ee-roh", "Yellow", null, "きいろ", "#F2C230"],
+        ["緑", "mee-doh-ree", "Green", null, "みどり", "#2E9B5B"],
+        ["白", "shee-roh", "White", null, "しろ", "#FFFFFF"],
+        ["黒", "koo-roh", "Black", null, "くろ", "#111111"],
+        ["茶色", "chah-ee-roh", "Brown", null, "ちゃいろ", "#8A5A3B"],
+        ["灰色", "high-ee-roh", "Gray", null, "はいいろ", "#8D95A3"],
+        ["オレンジ", "oh-rehn-jee", "Orange", null, null, "#F28C28"],
+        ["ピンク", "peen-koo", "Pink", null, null, "#F27BA6"],
+        ["紫", "moo-rah-sah-kee", "Purple", null, "むらさき", "#7A4FC2"],
+        ["水色", "mee-zoo-ee-roh", "Light blue", null, "みずいろ", "#7CC8EA"],
+        ["金色", "keen-ee-roh", "Gold", null, "きんいろ", "#C9A227"],
+        ["銀色", "geen-ee-roh", "Silver", null, "ぎんいろ", "#B8BEC8"]
+      ]},
+      { label: "Asking", items: [
+        ["これの青はありますか", "koh-reh no ah-oh wah ah-ree-mahss kah", "Do you have this in blue? (swap in any color)", null, "これのあおはありますか"],
+        ["何色ですか", "nahn-ee-roh dess kah", "What color is it?"]
+      ]}
+    ]
+  },
+  {
+    id: "emergency", title: "Emergency", jp: "緊急",
+    note: "In Japan, dial 110 for the police and 119 for fire or an ambulance.",
+    groups: [
+      { label: "Getting help", items: [
+        ["助けてください", "tah-soo-keh-teh koo-dah-sigh", "Please help me"],
+        ["警察を呼んでください", "keh-sah-tsoo oh yohn-deh koo-dah-sigh", "Please call the police"],
+        ["救急車を呼んでください", "kyoo-kyoo-shah oh yohn-deh koo-dah-sigh", "Please call an ambulance"],
+        ["医者が必要です", "ee-shah gah hee-tsoo-yoh dess", "I need a doctor"],
+        ["英語を話せる人はいますか", "ay-go oh hah-nah-seh-roo hee-toh wah ee-mahss kah", "Is there anyone who speaks English?"]
+      ]},
+      { label: "Where to go", items: [
+        ["病院はどこですか", "byoh-een wah doh-koh dess kah", "Where is the hospital?"],
+        ["薬局はどこですか", "yahk-kyoh-koo wah doh-koh dess kah", "Where is the pharmacy?"],
+        ["交番はどこですか", "koh-bahn wah doh-koh dess kah", "Where is the police box?"]
+      ]},
+      { label: "Lost or stolen", items: [
+        ["財布をなくしました", "sigh-foo oh nah-koo-shee-mahsh-tah", "I lost my wallet"],
+        ["パスポートをなくしました", "pahs-poh-toh oh nah-koo-shee-mahsh-tah", "I lost my passport"],
+        ["盗まれました", "noo-soh-mah-reh-mahsh-tah", "It was stolen"]
+      ]},
+      { label: "Quick words", items: [
+        ["危ない", "ah-boo-nigh", "Watch out! / Dangerous"],
+        ["気分が悪いです", "kee-boon gah wah-roo-ee dess", "I feel sick"],
+        ["大丈夫です", "dye-joh-boo dess", "I'm OK / No thank you"]
+      ]}
+    ]
+  }
+];
+
+const canSpeak = "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
+
+const icons = {
+  speaker: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4z"/><path d="M15.5 9a4 4 0 010 6M18 6.5a7.5 7.5 0 010 11"/></svg>',
+  expand: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>'
+};
+
+/* ---------- voices ---------- */
+const voiceRow = document.getElementById("voiceRow");
+const voiceSelect = document.getElementById("voiceSelect");
+const voiceName = document.getElementById("voiceName");
+let jaVoices = [];
+
+function voiceKey(v) { return v.name + "|" + v.lang; }
+// Higher score = more likely to sound natural. Used to pick the default.
+function voiceScore(v) {
+  let s = 0;
+  if (/premium|enhanced|neural|natural/i.test(v.name)) s += 3;
+  if (/google/i.test(v.name)) s += 2;
+  if (/kyoko|otoya|o-ren|hattori|siri/i.test(v.name)) s += 1;
+  return s;
+}
+function savedVoice() {
+  try { return localStorage.getItem("jpVoice"); } catch (e) { return null; }
+}
+function saveVoice(key) {
+  try { localStorage.setItem("jpVoice", key); } catch (e) { /* storage unavailable */ }
+}
+function refreshVoices() {
+  if (!canSpeak) return;
+  jaVoices = speechSynthesis.getVoices()
+    .filter(v => v.lang && v.lang.replace("_", "-").toLowerCase().startsWith("ja"))
+    .sort((a, b) => voiceScore(b) - voiceScore(a));
+  voiceSelect.textContent = "";
+  jaVoices.forEach(v => {
+    const o = document.createElement("option");
+    o.value = voiceKey(v);
+    o.textContent = v.name + (v.localService ? "" : " (needs internet)");
+    voiceSelect.append(o);
+  });
+  // Default: the saved choice, else Kyoko (best-scoring one), else the best-scoring voice.
+  const pick = jaVoices.find(v => voiceKey(v) === savedVoice())
+    || jaVoices.find(v => /kyoko/i.test(v.name))
+    || jaVoices[0];
+  if (pick) {
+    voiceSelect.value = voiceKey(pick);
+    voiceName.textContent = pick.name;
+  }
+  voiceRow.hidden = jaVoices.length < 2;
+}
+function currentVoice() {
+  return jaVoices.find(v => voiceKey(v) === voiceSelect.value) || jaVoices[0];
+}
+
+function speak(text) {
+  if (!canSpeak) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "ja-JP";
+  u.rate = 0.8;
+  const voice = currentVoice();
+  if (voice) u.voice = voice;
+  speechSynthesis.speak(u);
+}
+
+voiceSelect.addEventListener("change", () => {
+  saveVoice(voiceSelect.value);
+  const v = currentVoice();
+  if (v) voiceName.textContent = v.name;
+  speak("こんにちは");
+});
+if (canSpeak) {
+  refreshVoices();
+  speechSynthesis.addEventListener("voiceschanged", refreshVoices);
+}
+
+function el(tag, cls, text) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text != null) e.textContent = text;
+  return e;
+}
+
+function iconButton(svg, label, onClick) {
+  const b = el("button", "icon");
+  b.type = "button";
+  b.setAttribute("aria-label", label);
+  b.innerHTML = svg;
+  b.addEventListener("click", onClick);
+  return b;
+}
+
+/* ---------- show-to-staff overlay ---------- */
+const show = document.getElementById("show");
+const showJp = document.getElementById("showJp");
+const showSay = document.getElementById("showSay");
+const showEn = document.getElementById("showEn");
+let lastFocus = null;
+let current = null;
+
+function openShow(item, trigger) {
+  current = item;
+  showJp.textContent = item[0];
+  showSay.textContent = item[1];
+  showEn.textContent = item[2];
+  lastFocus = trigger;
+  show.hidden = false;
+  show.querySelector(".close").focus();
+}
+function closeShow() {
+  show.hidden = true;
+  if (canSpeak) speechSynthesis.cancel();
+  if (lastFocus) lastFocus.focus();
+}
+show.addEventListener("click", closeShow);
+document.getElementById("showPlay").addEventListener("click", e => {
+  e.stopPropagation();
+  if (current) speak(current[4] || current[0]);
+});
+if (!canSpeak) document.getElementById("showPlay").hidden = true;
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !show.hidden) closeShow(); });
+
+/* ---------- build the page ---------- */
+function card(item) {
+  const [jp, say, en, flag, spoken] = item;
+  const li = el("li", "card");
+  const text = el("div", "text");
+  text.append(el("p", "jp", jp));
+  text.lastChild.lang = "ja";
+  text.append(el("p", "say", say));
+  const meaning = el("p", "en");
+  if (flag === "hear") meaning.append(el("span", "tag", "You'll hear this"));
+  meaning.append(document.createTextNode(en));
+  text.append(meaning);
+
+  const actions = el("div", "actions");
+  if (canSpeak) actions.append(iconButton(icons.speaker, "Play: " + en, () => speak(spoken || jp)));
+  const expandBtn = iconButton(icons.expand, "Show full screen: " + en, () => openShow(item, expandBtn));
+  actions.append(expandBtn);
+
+  li.append(text, actions);
+  return li;
+}
+
+function chip(item) {
+  const [jp, say, en, , spoken, color] = item;
+  const li = el("li");
+  const b = el("button", "chip");
+  b.type = "button";
+  b.setAttribute("aria-label", en + ": " + say);
+  const j = el("p", "jp", jp); j.lang = "ja";
+  const meaning = el("p", "en");
+  if (color) {
+    const sw = el("span", "swatch");
+    sw.style.background = color;
+    meaning.append(sw);
+  }
+  meaning.append(document.createTextNode(en));
+  b.append(j, el("p", "say", say), meaning);
+  b.addEventListener("click", () => speak(spoken || jp));
+  li.append(b);
+  return li;
+}
+
+const app = document.getElementById("app");
+sections.forEach(sec => {
+  const s = el("section");
+  s.id = sec.id;
+  const h2 = el("h2", null, sec.title);
+  const sub = el("span", null, sec.jp);
+  sub.lang = "ja";
+  h2.append(sub);
+  s.append(h2);
+  if (sec.note) s.append(el("p", "note", sec.note));
+
+  sec.groups.forEach(g => {
+    if (g.label) s.append(el("h3", null, g.label));
+    const ul = el("ul", g.chips ? "chips" : "cards");
+    g.items.forEach(item => ul.append(g.chips ? chip(item) : card(item)));
+    s.append(ul);
+  });
+
+  if (sec.counts) {
+    s.append(el("h3", null, sec.counts.label));
+    const ul = el("ul", "chips");
+    sec.counts.items.forEach(item => ul.append(chip(item)));
+    s.append(ul);
+  }
+  app.append(s);
+});
+
+/* ---------- section dropdown ---------- */
+const jump = document.getElementById("jump");
+let lockUntil = 0; // ignore scroll updates while a jump is animating
+sections.forEach(sec => {
+  const o = document.createElement("option");
+  o.value = sec.id;
+  o.textContent = sec.title;
+  jump.append(o);
+});
+jump.addEventListener("change", () => {
+  lockUntil = Date.now() + 900;
+  document.getElementById(jump.value).scrollIntoView();
+});
+function setActive(id) {
+  if (Date.now() < lockUntil) return;
+  jump.value = id;
+}
+if ("IntersectionObserver" in window) {
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (en.isIntersecting) setActive(en.target.id); });
+  }, { rootMargin: "-30% 0px -60% 0px" });
+  document.querySelectorAll("main section").forEach(sec => io.observe(sec));
+}
+
+if (canSpeak) speechSynthesis.getVoices();
+</script>
+</body>
+</html>
