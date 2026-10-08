@@ -310,6 +310,9 @@
   #show .play { background: #232C40; color: #fff; width: 56px; height: 56px; border-radius: 16px; }
   #show .play svg { width: 26px; height: 26px; }
 </style>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.svg">
 </head>
 <body>
 
@@ -935,6 +938,9 @@ if ("IntersectionObserver" in window) {
 }
 
 if (canSpeak) speechSynthesis.getVoices();
+</script>
+<script>
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
 </script>
 </body>
 </html>
