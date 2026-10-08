@@ -52,7 +52,7 @@
   .hero {
     max-width: 640px;
     margin: 0 auto;
-    padding: calc(env(safe-area-inset-top, 0px) + 24px) 16px 0;
+    padding: calc(env(safe-area-inset-top, 0px) + 24px) 16px 16px;
   }
   .hero h1 {
     margin: 0 0 8px;
@@ -60,46 +60,47 @@
     line-height: 1.15;
     letter-spacing: -0.01em;
   }
-  .hero p { margin: 0; color: var(--ink); font-size: 0.98rem; }
-  .controls { display: grid; gap: 8px; margin-top: 16px; }
+  .hero .updated { margin: 0; color: var(--muted); font-size: 0.8rem; }
 
-  /* Shared control look: accordion rows and dropdowns are the same component. */
-  .acc, .select-wrap select {
+  .bar { display: flex; gap: 8px; }
+  .bar-btn, .select-wrap select {
     border: 1px solid var(--line);
     border-radius: 12px;
     background: var(--card);
     color: var(--ink);
   }
-  .acc summary {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  .bar-btn {
+    flex: none;
+    position: relative;
+    display: grid;
+    place-items: center;
     min-height: 40px;
     padding: 0 14px;
-    border-radius: 12px;
+    font: inherit;
     font-size: 0.95rem;
     font-weight: 600;
-    list-style: none;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
   }
-  .acc summary::-webkit-details-marker { display: none; }
-  .acc summary .label { flex: 1; }
-  .acc summary .value {
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-weight: 500;
-    color: var(--muted);
+  .bar-btn[aria-expanded="true"] { background: var(--chip); }
+  .bar-btn svg { width: 20px; height: 20px; }
+  .bar-btn.voice { width: 40px; padding: 0; }
+  .bar-btn.voice select {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    font-size: 16px;
   }
-  .acc-body { padding: 0 14px 14px; }
+  .bar-btn.voice:focus-within, .bar-btn:focus-visible, .select-wrap select:focus-visible {
+    outline: 3px solid var(--say);
+    outline-offset: 2px;
+  }
   .chev { width: 20px; height: 20px; flex: none; }
-  @media (prefers-reduced-motion: no-preference) {
-    .chev { transition: transform 0.2s; }
-  }
-  .acc[open] > summary .chev { transform: rotate(180deg); }
 
-  .select-wrap { position: relative; }
+  .select-wrap { position: relative; flex: 1; min-width: 0; }
   .select-wrap select {
     -webkit-appearance: none;
     appearance: none;
@@ -119,9 +120,19 @@
     margin-top: -10px;
     pointer-events: none;
   }
-  .acc summary:focus-visible, .select-wrap select:focus-visible {
-    outline: 3px solid var(--say);
-    outline-offset: 2px;
+
+  .panel {
+    position: absolute;
+    top: 100%;
+    left: 16px;
+    right: 16px;
+    max-height: calc(100dvh - 96px);
+    overflow-y: auto;
+    padding: 14px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--card);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
   }
 
   .vowels {
@@ -144,7 +155,7 @@
     border-bottom: 1px solid var(--line);
     padding-top: env(safe-area-inset-top, 0px);
   }
-  nav .row { max-width: 640px; margin: 0 auto; padding: 8px 16px; }
+  nav .row { position: relative; max-width: 640px; margin: 0 auto; padding: 8px 16px; }
 
   main {
     max-width: 640px;
@@ -206,7 +217,7 @@
     line-height: 1.35;
   }
   .say {
-    margin: 4px 0 2px;
+    margin: 4px 0 0;
     font-size: 1.1rem;
     font-weight: 700;
     line-height: 1.3;
@@ -214,6 +225,7 @@
     overflow-wrap: anywhere;
   }
   .en { margin: 0; font-size: 0.95rem; color: var(--muted); }
+  .card .en { margin-bottom: 6px; }
   .tag {
     display: inline-block;
     margin-right: 6px;
@@ -319,43 +331,36 @@
 
 <header class="hero">
   <h1>Japanese phrases</h1>
-  <p>Read the green line out loud. Tap the speaker to hear it, or tap the expand button to hold your phone up to someone.</p>
-  <div class="controls">
-    <details class="acc">
-      <summary><span class="label">Sounds guide</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-      <div class="acc-body">
-        <dl class="vowels">
-          <div><dt>ah</dt><dd>as in father</dd></div>
-          <div><dt>eh</dt><dd>as in bed</dd></div>
-          <div><dt>ee</dt><dd>as in see</dd></div>
-          <div><dt>oh</dt><dd>as in go</dd></div>
-          <div><dt>oo</dt><dd>as in moon</dd></div>
-        </dl>
-        <ul class="tips">
-          <li>Say every syllable evenly. Japanese has no strong stress.</li>
-          <li>The sound of “eye” is written <b>sigh</b>, <b>guy</b>, <b>zye</b>, <b>rye</b>, <b>tie</b>, or <b>kigh</b>, so <b>koo-dah-sigh</b> ends like “sigh”.</li>
-          <li>In <b>dess</b> and <b>mahss</b>, the last “u” is barely said.</li>
-          <li>A doubled consonant, as in <b>keep-poo</b>, means a tiny pause before it.</li>
-        </ul>
-      </div>
-    </details>
-    <details class="acc" id="voiceRow" hidden>
-      <summary><span class="label">Voice</span><span class="value" id="voiceName"></span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-      <div class="acc-body">
-        <div class="select-wrap">
-          <select id="voiceSelect" aria-label="Japanese voice"></select>
-          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </div>
-      </div>
-    </details>
-  </div>
+  <p class="updated">Last updated Oct 8, 2026</p>
 </header>
 
 <nav aria-label="Sections">
   <div class="row">
-    <div class="select-wrap">
-      <select id="jump" aria-label="Jump to section"></select>
-      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+    <div class="bar">
+      <div class="select-wrap">
+        <select id="jump" aria-label="Jump to section"></select>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <button class="bar-btn" type="button" id="soundsBtn" aria-expanded="false" aria-controls="soundsPanel">Sounds guide</button>
+      <label class="bar-btn voice" id="voiceRow" title="Voice" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg>
+        <select id="voiceSelect" aria-label="Japanese voice"></select>
+      </label>
+    </div>
+    <div class="panel" id="soundsPanel" hidden>
+      <dl class="vowels">
+        <div><dt>ah</dt><dd>as in father</dd></div>
+        <div><dt>eh</dt><dd>as in bed</dd></div>
+        <div><dt>ee</dt><dd>as in see</dd></div>
+        <div><dt>oh</dt><dd>as in go</dd></div>
+        <div><dt>oo</dt><dd>as in moon</dd></div>
+      </dl>
+      <ul class="tips">
+        <li>Say every syllable evenly. Japanese has no strong stress.</li>
+        <li>The sound of “eye” is written <b>sigh</b>, <b>guy</b>, <b>zye</b>, <b>rye</b>, <b>tie</b>, or <b>kigh</b>, so <b>koo-dah-sigh</b> ends like “sigh”.</li>
+        <li>In <b>dess</b> and <b>mahss</b>, the last “u” is barely said.</li>
+        <li>A doubled consonant, as in <b>keep-poo</b>, means a tiny pause before it.</li>
+      </ul>
     </div>
   </div>
 </nav>
@@ -733,7 +738,6 @@ const icons = {
 /* ---------- voices ---------- */
 const voiceRow = document.getElementById("voiceRow");
 const voiceSelect = document.getElementById("voiceSelect");
-const voiceName = document.getElementById("voiceName");
 let jaVoices = [];
 
 function voiceKey(v) { return v.name + "|" + v.lang; }
@@ -750,6 +754,10 @@ function savedVoice() {
 }
 function saveVoice(key) {
   try { localStorage.setItem("jpVoice", key); } catch (e) { /* storage unavailable */ }
+}
+function setVoiceLabel(v) {
+  voiceRow.title = "Voice: " + v.name;
+  voiceSelect.setAttribute("aria-label", "Japanese voice: " + v.name);
 }
 function refreshVoices() {
   if (!canSpeak) return;
@@ -769,7 +777,7 @@ function refreshVoices() {
     || jaVoices[0];
   if (pick) {
     voiceSelect.value = voiceKey(pick);
-    voiceName.textContent = pick.name;
+    setVoiceLabel(pick);
   }
   voiceRow.hidden = jaVoices.length < 2;
 }
@@ -791,7 +799,7 @@ function speak(text) {
 voiceSelect.addEventListener("change", () => {
   saveVoice(voiceSelect.value);
   const v = currentVoice();
-  if (v) voiceName.textContent = v.name;
+  if (v) setVoiceLabel(v);
   speak("こんにちは");
 });
 if (canSpeak) {
@@ -850,13 +858,13 @@ function card(item) {
   const [jp, say, en, flag, spoken] = item;
   const li = el("li", "card");
   const text = el("div", "text");
-  text.append(el("p", "jp", jp));
-  text.lastChild.lang = "ja";
-  text.append(el("p", "say", say));
   const meaning = el("p", "en");
   if (flag === "hear") meaning.append(el("span", "tag", "You'll hear this"));
   meaning.append(document.createTextNode(en));
   text.append(meaning);
+  text.append(el("p", "jp", jp));
+  text.lastChild.lang = "ja";
+  text.append(el("p", "say", say));
 
   const actions = el("div", "actions");
   if (canSpeak) actions.append(iconButton(icons.speaker, "Play: " + en, () => speak(spoken || jp)));
@@ -924,6 +932,7 @@ sections.forEach(sec => {
   jump.append(o);
 });
 jump.addEventListener("change", () => {
+  setSounds(false);
   lockUntil = Date.now() + 900;
   document.getElementById(jump.value).scrollIntoView();
 });
@@ -937,6 +946,21 @@ if ("IntersectionObserver" in window) {
   }, { rootMargin: "-30% 0px -60% 0px" });
   document.querySelectorAll("main section").forEach(sec => io.observe(sec));
 }
+
+/* ---------- sounds guide panel ---------- */
+const soundsBtn = document.getElementById("soundsBtn");
+const soundsPanel = document.getElementById("soundsPanel");
+function setSounds(open) {
+  soundsPanel.hidden = !open;
+  soundsBtn.setAttribute("aria-expanded", String(open));
+}
+soundsBtn.addEventListener("click", () => setSounds(soundsPanel.hidden));
+document.addEventListener("click", e => {
+  if (!soundsPanel.contains(e.target) && !soundsBtn.contains(e.target)) setSounds(false);
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape" && !soundsPanel.hidden) { setSounds(false); soundsBtn.focus(); }
+});
 
 if (canSpeak) speechSynthesis.getVoices();
 </script>
