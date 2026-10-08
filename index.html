@@ -52,7 +52,7 @@
   .hero {
     max-width: 640px;
     margin: 0 auto;
-    padding: calc(env(safe-area-inset-top, 0px) + 24px) 16px 16px;
+    padding: calc(env(safe-area-inset-top, 0px) + 24px) 16px 0;
   }
   .hero h1 {
     margin: 0 0 8px;
@@ -66,7 +66,7 @@
   /* Shared control look: accordion rows and dropdowns are the same component. */
   .acc, .select-wrap select {
     border: 1px solid var(--line);
-    border-radius: 14px;
+    border-radius: 12px;
     background: var(--card);
     color: var(--ink);
   }
@@ -74,9 +74,10 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    min-height: 48px;
-    padding: 0 16px;
-    border-radius: 14px;
+    min-height: 40px;
+    padding: 0 14px;
+    border-radius: 12px;
+    font-size: 0.95rem;
     font-weight: 600;
     list-style: none;
     cursor: pointer;
@@ -91,8 +92,8 @@
     font-weight: 500;
     color: var(--muted);
   }
-  .acc-body { padding: 0 16px 16px; }
-  .chev { width: 22px; height: 22px; flex: none; }
+  .acc-body { padding: 0 14px 14px; }
+  .chev { width: 20px; height: 20px; flex: none; }
   @media (prefers-reduced-motion: no-preference) {
     .chev { transition: transform 0.2s; }
   }
@@ -104,18 +105,18 @@
     appearance: none;
     display: block;
     width: 100%;
-    min-height: 48px;
-    padding: 0 48px 0 16px;
+    min-height: 40px;
+    padding: 0 42px 0 14px;
     font: inherit;
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 0.95rem;
     text-overflow: ellipsis;
   }
   .select-wrap .chev {
     position: absolute;
-    right: 16px;
+    right: 12px;
     top: 50%;
-    margin-top: -11px;
+    margin-top: -10px;
     pointer-events: none;
   }
   .acc summary:focus-visible, .select-wrap select:focus-visible {
@@ -151,7 +152,7 @@
     padding: 0 16px calc(env(safe-area-inset-bottom, 0px) + 40px);
   }
 
-  section { scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 72px); padding-top: 24px; }
+  section { scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 64px); padding-top: 24px; }
   section h2 {
     display: flex;
     align-items: baseline;

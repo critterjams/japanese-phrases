@@ -1,4 +1,4 @@
-const CACHE = "japanese-phrases-v1";
+const CACHE = "japanese-phrases-v2";
 const ASSETS = ["./", "./index.html", "./manifest.webmanifest", "./icon.svg"];
 
 self.addEventListener("install", (e) => {
