@@ -39,7 +39,7 @@ Cards show English, then Japanese, then the phonetic line. The phonetic line is 
 
 ## Phonetic spelling
 
-Follow the Sounds guide panel in the page. Vowels are `ah`, `eh`, `ee`, `oh`, `oo`. The "eye" sound is spelled `sigh`, `guy`, `zye`, `rye`, `tie` or `kigh`. A final unstressed "u" is `ss` or `dess` style (`mahss`, `dess`). Join syllables with hyphens and separate words with spaces.
+Follow the Sounds guide panel in the page. Vowels are `ah`, `eh`, `ee`, `oh`, `oo`. The "eye" sound is spelled `sigh`, `guy`, `zye`, `rye`, `tie` or `kigh`. A barely-voiced final "u" is dropped, as in `mahss` and `dess`. Join syllables with hyphens and separate words with spaces.
 
 ## Voice
 
