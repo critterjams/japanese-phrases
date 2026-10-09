@@ -382,8 +382,25 @@
 
 <script>
 // Each phrase: [japanese, phonetic English, meaning, optional flag]
-// flag "hear" = something staff will say to you.
+// flag "hear" = something staff will say to you. 5th item overrides what the voice reads.
 const sections = [
+  {
+    id: "trip", title: "Our trip", jp: "今回の旅",
+    note: "The hotel's official address is Akasaka (inside Ark Hills), a short walk from Roppongi-itchome station. Drivers know it by name, and the address on your phone backs it up.",
+    groups: [
+      { label: "Airport taxi to the hotel", items: [
+        ["ANAインターコンチネンタルホテル東京までお願いします", "ay-en-ay een-tah-kohn-chee-nehn-tah-roo hoh-teh-roo toh-kyoh mah-deh oh-neh-guy shee-mahss", "To the ANA InterContinental Tokyo, please", null, "エーエヌエー インターコンチネンタルホテル東京までお願いします"],
+        ["アークヒルズのホテルです", "ahh-koo hee-roo-zoo no hoh-teh-roo dess", "It's the hotel at Ark Hills (near Roppongi)"],
+        ["東京都港区赤坂1-12-33", "toh-kyoh-toh mee-nah-toh-koo ah-kah-sah-kah ee-chohm-meh jyoo-nee no sahn-jyoo-sahn", "The hotel's address (show this to the driver)", null, "とうきょうと みなとく あかさか、いっちょうめ、じゅうにの、さんじゅうさん"]
+      ]},
+      { label: "On the way", items: [
+        ["高速道路を使ってください", "koh-soh-doh-roh oh tsoo-kaht-teh koo-dah-sigh", "Please take the expressway"],
+        ["どのくらいかかりますか", "doh-noh koo-rye kah-kah-ree-mahss kah", "How long will it take?"],
+        ["クレジットカードは使えますか", "kreh-jeet-toh-kah-doh wah tsoo-kah-eh-mahss kah", "Can I pay by card?"],
+        ["着きましたよ", "tsoo-kee-mahsh-tah yoh", "We've arrived", "hear"]
+      ]}
+    ]
+  },
   {
     id: "greetings", title: "Greetings", jp: "あいさつ",
     groups: [
